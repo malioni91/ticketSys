@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -22,9 +23,8 @@ class Ticket(models.Model):
         choices=DEVELOPMENT_CATEGORY,
         default=DYNAX,
     )
-    completed = models.BooleanField()
+    status = models.BooleanField()
     days_allocated = models.IntegerField(default=1)
-    
 
-
-class 
+    def __str__(self):
+        return self.title
