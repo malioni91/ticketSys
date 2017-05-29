@@ -6,27 +6,35 @@ from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import datetime
 
+from tickets.forms import LoginForm
 from tickets.models import Ticket
 
 
 
 
-# Create your views here.
+def landing(request):
+    """The landing page view that anonymous users see
+    when they arrive to the website"""
+    return render(request, "tickets/landing.html")
+
 
 @login_required
 def index(request):
     request.session.set_test_cookie()
     user = User.objects.get(username=request.user.username)
+    tickets = Ticket.objects.order_by('-pub_date')
     visitor_cookie_handler(request)
-    context_dict = {}
+    context_dict = {'tickets' : tickets}
     context_dict['visits'] = request.session['visits']
-    return render(request, 'connect/index.html', context=context_dict)
+    return render(request, 'tickets/index.html', context=context_dict)
+
+@login_required
+def ticket_detail(request):
+    tickets = Ticket.objects.all()
+    return render(request, 'tickets/ticket_detail.html', context={'tickets' : tickets})
 
 
-def landing(request):
-    """The landing page view that anonymous users see
-    when they arrive to the website"""
-    return render(request, "connect/landing.html")
+
 
 
 def user_login(request):
@@ -49,7 +57,7 @@ def user_login(request):
     else:
         login_form = LoginForm()
 
-    return render(request, 'connect/login.html',
+    return render(request, 'tickets/login.html',
                   {'login_form': login_form, 'authenticated': authenticated})
 
 

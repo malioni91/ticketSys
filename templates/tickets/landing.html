@@ -1,1 +1,13 @@
-<h1>This is the landing page.</h1>
+{% extends 'tickets/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3">ticketSys</h1>
+        <p id="landing_mission">
+            TicketSys is a simple ticketing management system.
+        </p>
+    </div>
+</div>
+{% endblock %}
