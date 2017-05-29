@@ -119,3 +119,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [STATIC_DIR, ]
+
+
+# URL to redirect not logged in users
+
+LOGIN_URL = '/tickets/landing/'
+
+# Seconds before automatically logged out
+SESSION_COOKIE_AGE = 600
