@@ -2,7 +2,8 @@
 {% load staticfiles %}
 
 {% block content %}
-    {% for ticket in tickets %}
+
+
         <ul>
         <li>Title: {{ ticket.title }}</li>
         <li>Description: {{ ticket.description }}</li>
@@ -10,5 +11,4 @@
         <li>SLA: {{ ticket.days_allocated }}</li>
         </ul>
 
-    {% endfor %}
 {% endblock %}

@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import datetime
+
+from django.views import generic
 
 from tickets.forms import LoginForm
 from tickets.models import Ticket
@@ -28,13 +30,17 @@ def index(request):
     context_dict['visits'] = request.session['visits']
     return render(request, 'tickets/index.html', context=context_dict)
 
-@login_required
-def ticket_detail(request):
+
+def ticket_detail(request, pk):
+
+    ticket_id = get_object_or_404(Ticket, pk=pk)
     tickets = Ticket.objects.all()
-    return render(request, 'tickets/ticket_detail.html', context={'tickets' : tickets})
 
-
-
+    return render(
+        request,
+        'tickets/ticket_detail.html',
+        context={'ticket': ticket_id, 'show_tickets': tickets}
+    )
 
 
 def user_login(request):

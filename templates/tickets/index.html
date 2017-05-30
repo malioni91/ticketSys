@@ -6,7 +6,7 @@
     <div>
         {% if user.is_authenticated %}
             {% for ticket in tickets %}
-                <li><a href="{% url 'detail' %}" >{{ ticket.title }}</a></li>
+                <li><a href="{% url 'ticket_detail' ticket.id %}" >{{ ticket.title }}</a></li>
             {% endfor %}
         {% endif %}
     </div>
