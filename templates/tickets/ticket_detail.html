@@ -8,7 +8,7 @@
         <li>Title: {{ ticket.title }}</li>
         <li>Description: {{ ticket.description }}</li>
         <li>Assigned to: {{ ticket.user_assigned.first_name }} {{ ticket.user_assigned.last_name }}</li>
-        <li>SLA: {{ ticket.days_allocated }}</li>
+        <li>SLA: {{ ticket.sla.days }} day(s)</li>
         </ul>
 
 {% endblock %}

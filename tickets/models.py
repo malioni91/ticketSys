@@ -1,3 +1,4 @@
+from datetime import timedelta, date
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -59,6 +60,10 @@ class Ticket(models.Model):
         help_text='1 = Highest Priority, 5 = Low Priority',
     )
     days_allocated = models.IntegerField(default=1)
+    @property
+    def sla(self):
+        return (self.pub_date + timedelta(self.days_allocated)) - date.today()
+
 
     def __str__(self):
         return self.title

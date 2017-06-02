@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
-from datetime import datetime
+from datetime import datetime, date
 
 from django.views import generic
 
@@ -39,7 +39,7 @@ def ticket_detail(request, pk):
     return render(
         request,
         'tickets/ticket_detail.html',
-        context={'ticket': ticket_id, 'show_tickets': tickets}
+        context={'ticket': ticket_id, 'show_tickets': tickets, }
     )
 
 
