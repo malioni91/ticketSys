@@ -8,7 +8,7 @@ from datetime import datetime, date
 
 from django.views import generic
 
-from tickets.forms import LoginForm
+from tickets.forms import LoginForm, TicketForm
 from tickets.models import Ticket
 
 
@@ -36,10 +36,22 @@ def ticket_detail(request, pk):
     ticket_id = get_object_or_404(Ticket, pk=pk)
     tickets = Ticket.objects.all()
 
+    form = TicketForm(request.POST)
+    if form.is_valid():
+        status_choice = request.POST.get('status_choice')
+
+
+    # if request.method == 'POST':
+    #     form = TicketForm(request.POST)
+    #     if form.is_valid():
+    #         return HttpResponseRedirect('/tickets/')
+    #     else:
+    #         form = TicketForm()
+
     return render(
         request,
         'tickets/ticket_detail.html',
-        context={'ticket': ticket_id, 'show_tickets': tickets, }
+        context={'ticket': ticket_id, 'show_tickets': tickets, 'form': form, }
     )
 
 
